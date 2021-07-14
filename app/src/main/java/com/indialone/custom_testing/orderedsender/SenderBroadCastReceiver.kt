@@ -1,4 +1,4 @@
-package com.indialone.custom_testing
+package com.indialone.custom_testing.orderedsender
 
 import android.content.BroadcastReceiver
 import android.content.Context

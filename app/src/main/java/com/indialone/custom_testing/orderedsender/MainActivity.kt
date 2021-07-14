@@ -1,10 +1,12 @@
-package com.indialone.custom_testing
+package com.indialone.custom_testing.orderedsender
 
+import android.Manifest
 import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.indialone.custom_testing.R
 
 /*
     Explicit broadcast included
@@ -42,7 +44,18 @@ class MainActivity : AppCompatActivity() {
 
             val bundle = Bundle()
             bundle.putString("stringExtra", "start")
-            sendOrderedBroadcast(intent, null, SenderBroadCastReceiver(), null, 0, "start", bundle)
+
+            // if we make permission to the sendOrderedBroadcast then it should be in Manifest of
+            // receiver application
+            sendOrderedBroadcast(
+                intent,
+                Manifest.permission.WAKE_LOCK,
+                SenderBroadCastReceiver(),
+                null,
+                0,
+                "start",
+                bundle
+            )
 
 //            sendBroadcast(intent)
         }
