@@ -1,13 +1,16 @@
 package com.indialone.custom_testing
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+
+/*
+    Explicit broadcast included
+
+ */
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,11 +24,31 @@ class MainActivity : AppCompatActivity() {
         tvMesage = findViewById(R.id.tv_message)
 
         button.setOnClickListener {
+//            val intent = Intent(this, CustomBroadCastReceiver::class.java)
             val intent = Intent("com.indialone.CUSTOM_ACTION")
-            intent.putExtra("com.indialone.EXTRA_TEXT", "This is from the another applcation")
-            sendBroadcast(intent)
+
+            val packageManager = getPackageManager()
+            val infos = packageManager.queryBroadcastReceivers(intent, 0)
+
+            for (info in infos) {
+                val cn = ComponentName(info.activityInfo.packageName, info.activityInfo.name)
+                intent.component = cn
+                sendBroadcast(intent)
+            }
+
+//            intent.setPackage("com.indialone.broadcastreceiverdemo1")
+//            sendBroadcast(intent)
         }
 
+    }
+}
+/*
+    * for custom broad cast use below code here
+
+    button.setOnClickListener {
+        val intent = Intent("com.indialone.CUSTOM_ACTION")
+        intent.putExtra("com.indialone.EXTRA_TEXT", "This is from the another applcation")
+        sendBroadcast(intent)
     }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
@@ -45,5 +68,4 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         unregisterReceiver(broadcastReceiver)
     }
-
-}
+*/
