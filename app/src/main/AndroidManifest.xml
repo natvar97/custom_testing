@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <receiver
-            android:name=".CustomBroadCastReceiver"
+            android:name=".SenderBroadCastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.indialone.CUSTOM_ACTION" />

@@ -1,7 +1,6 @@
 package com.indialone.custom_testing
 
 import android.content.*
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -27,16 +26,24 @@ class MainActivity : AppCompatActivity() {
 //            val intent = Intent(this, CustomBroadCastReceiver::class.java)
             val intent = Intent("com.indialone.CUSTOM_ACTION")
 
-            val packageManager = getPackageManager()
-            val infos = packageManager.queryBroadcastReceivers(intent, 0)
+            /*
+                val packageManager = getPackageManager()
+                val infos = packageManager.queryBroadcastReceivers(intent, 0)
 
-            for (info in infos) {
-                val cn = ComponentName(info.activityInfo.packageName, info.activityInfo.name)
-                intent.component = cn
-                sendBroadcast(intent)
-            }
+                for (info in infos) {
+                    val cn = ComponentName(info.activityInfo.packageName, info.activityInfo.name)
+                    intent.component = cn
+                    sendBroadcast(intent)
+                }
+            */
 
-//            intent.setPackage("com.indialone.broadcastreceiverdemo1")
+            intent.setPackage("com.indialone.broadcastreceiverdemo1")
+            // for orderd broadcasts
+
+            val bundle = Bundle()
+            bundle.putString("stringExtra", "start")
+            sendOrderedBroadcast(intent, null, SenderBroadCastReceiver(), null, 0, "start", bundle)
+
 //            sendBroadcast(intent)
         }
 
