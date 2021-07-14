@@ -28,16 +28,17 @@ class MainActivity : AppCompatActivity() {
 //            val intent = Intent(this, CustomBroadCastReceiver::class.java)
             val intent = Intent("com.indialone.CUSTOM_ACTION")
 
-            /*
-                val packageManager = getPackageManager()
-                val infos = packageManager.queryBroadcastReceivers(intent, 0)
+//            /* v
+//            * uncomment if you want to order broadcast
+            val packageManager = getPackageManager()
+            val infos = packageManager.queryBroadcastReceivers(intent, 0)
 
-                for (info in infos) {
-                    val cn = ComponentName(info.activityInfo.packageName, info.activityInfo.name)
-                    intent.component = cn
-                    sendBroadcast(intent)
-                }
-            */
+            for (info in infos) {
+                val cn = ComponentName(info.activityInfo.packageName, info.activityInfo.name)
+                intent.component = cn
+                sendBroadcast(intent)
+            }
+
 
             intent.setPackage("com.indialone.broadcastreceiverdemo1")
             // for orderd broadcasts
